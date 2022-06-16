@@ -1,0 +1,37 @@
+htm, body{
+    height : 100%;
+    background-color: #fff !important;
+}
+
+.global-container{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #404040;
+}
+
+.login-form{
+    width: 388px;
+    height: 450px;
+    padding: 20px;
+    background-color: rgb(50, 223, 79) !important;
+    border-radius: 10px !important;
+}
+
+input[type="email"],
+input[type="password"]{
+    background: #fff;
+    color: #fff;
+    border: 2px solid #00ff00;
+    border-radius: 10px;
+    margin-bottom: 25px;
+}
+
+.btn LOG IN{
+    background: #48e248 !important;
+    color: #000 !important;
+    transform: translateY(10px);
+    font-size: 14px;
+    border-radius: 1;
+}

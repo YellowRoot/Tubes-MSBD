@@ -13,12 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->uuid('id')->unique();
-            $table->string('username')->unique();
-            $table->string('password');
-            $table->enum('level', ['mahasiswa', 'dosen', 'admin']);
-            $table->rememberToken();
+        Schema::create('bidang_ilmu', function (Blueprint $table) {
+            $table->id();
+            $table->string('nama_bidang');
             $table->timestamps();
         });
     }
@@ -30,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('bidang_ilmu');
     }
 };

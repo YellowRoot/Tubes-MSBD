@@ -13,18 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('skripsis', function (Blueprint $table) {
-            $table->id();
-            $table->string('judul',30);
-            $table->string('nim_mahasiswa',9);
-            $table->string('nip_dosen_pembimbing',18);
+        Schema::create('jadwal_hasil', function (Blueprint $table) {
+            $table->date('tanggal');
+            $table->time('pukul');
+            $table->string('tempat');
+            $table->string('nim_mahasiswa');
             $table->timestamps();
             $table->foreign('nim_mahasiswa')
-                ->references('nim')
-                ->on('mahasiswas');
-            $table->foreign('nip_dosen_pembimbing')
-                ->references('nip')
-                ->on('dosen_pembimbings');
+                ->references('nim')->on('mahasiswa')
+                ->cascadeOnDelete();
         });
     }
 
@@ -35,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('skripsis');
+        Schema::dropIfExists('jadwal_hasil');
     }
 };
