@@ -24,28 +24,28 @@ return new class extends Migration
         ');
 
         DB::unprepared('
-            CREATE OR REPLACE FUNCTION nilai_keseluruhan(nilai1 INT, nilai2 INT, nilai3 INT)
+            CREATE OR REPLACE FUNCTION nilai_keseluruhan(nilai1 FLOAT, nilai2 FLOAT, nilai3 FLOAT)
             RETURNS FLOAT
             BEGIN
                 DECLARE total FLOAT;
-                SET total = ((a.4) + (b.4) + (c.2))/10;
+                SET total = ((nilai1 * 4) + (nilai2 * 4) + (nilai3 * 2)) / 10;
                 RETURN total;
             END;
         ');
 
         DB::unprepared('
-            CREATE OR REPLACE FUNCTION nilai_huruf(nilai INT)
-            RETURNS CHAR
+            CREATE OR REPLACE FUNCTION nilai_huruf(nilai DOUBLE)
+            RETURNS VARCHAR(2)
             BEGIN
-                DECLARE hasil CHAR;
-                IF (nilai <= 49) THEN SET hasil = `E`;
-                ELSEIF (nilai <= 59) THEN SET hasil = `D`;
-                ELSEIF (nilai <= 64) THEN SET hasil = `C`;
-                ELSEIF (nilai <= 69) THEN SET hasil = `C+`;
-                ELSEIF (nilai <= 74) THEN SET hasil = `B`;
-                ELSEIF (nilai <= 79) THEN SET hasil = `B+`;
-                ELSEIF (nilai <= 100) THEN SET hasil = `A`;
-                END IF;
+                DECLARE hasil VARCHAR(2);
+                SELECT CASE WHEN nilai BETWEEN 80.0 AND 100.0 THEN "A"
+                WHEN nilai BETWEEN 75 AND 79 THEN "B+"
+                WHEN nilai BETWEEN 70 AND 74 THEN "B"
+                WHEN nilai BETWEEN 65 AND 69 THEN "C+"
+                WHEN nilai BETWEEN 60 AND 64 THEN "C"
+                WHEN nilai BETWEEN 50 AND 59 THEN "D"
+                ELSE "E"
+                END INTO hasil;
                 RETURN hasil;
             END;
         ');
