@@ -15,10 +15,10 @@ return new class extends Migration
     {
         DB::unprepared('
             CREATE OR REPLACE FUNCTION total_nilai(nilai1 INT, nilai2 INT, nilai3 INT, nilai4 INT)
-            RETURNS INT
+            RETURNS FLOAT
             BEGIN
-                DECLARE total INT;
-                SET total = nilai1 + nilai2 + nilai3 + nilai4;
+                DECLARE total FLOAT;
+                SET total = (nilai1 + nilai2 + nilai3 + nilai4) / 4;
                 RETURN total;
             END;
         ');

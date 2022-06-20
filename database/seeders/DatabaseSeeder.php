@@ -27,8 +27,12 @@ class DatabaseSeeder extends Seeder
             MahasiswaSeeder::class,
             DopingSeeder::class,
             SkripsiSeeder::class,
-            DopingSkripsiSeeder::class,
-            DopujiSkripsiSeeder::class,
+            JadwalProposalSeeder::class,
+            JadwalHasilSeeder::class,
+            JadwalSidangSeeder::class,
+            NilaiHasilSeeder::class,
+            NilaiSidangSeeder::class,
+            NilaiUjiSeeder::class,
         ]);
     }
 }

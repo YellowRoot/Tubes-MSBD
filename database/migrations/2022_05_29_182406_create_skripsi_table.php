@@ -14,19 +14,32 @@ return new class extends Migration
     public function up()
     {
         Schema::create('skripsi', function (Blueprint $table) {
-            $table->uuid('id')->unique();
-            $table->string('judul',30);
-            $table->string('nim_mahasiswa',9);
-            $table->unsignedBigInteger('bidang_ilmu');
-            $table->integer('nilai_uji_program')->length(3)->nullable();
-            $table->integer('total_nilai_hasil')->length(3)->nullable();
-            $table->integer('total_nilai_sidang')->length(3)->nullable();
+            $table->uuid('id')->primary();
+            $table->string('judul',200);
+            $table->char('nim_mahasiswa',9);
+            $table->tinyInteger('id_bidang_ilmu');
+            $table->char('id_doping1',18)->nullable();
+            $table->char('id_doping2',18)->nullable();
+            $table->char('id_dopuji1',18)->nullable();
+            $table->char('id_dopuji2',18)->nullable();
             $table->timestamps();
             $table->foreign('nim_mahasiswa')
                 ->references('nim')->on('mahasiswa')
                 ->cascadeOnDelete();
-            $table->foreign('bidang_ilmu')
+            $table->foreign('id_bidang_ilmu')
                 ->references('id')->on('bidang_ilmu')
+                ->cascadeOnDelete();
+            $table->foreign('id_doping1')
+                ->references('nip')->on('dosen')
+                ->cascadeOnDelete();
+            $table->foreign('id_doping2')
+                ->references('nip')->on('dosen')
+                ->cascadeOnDelete();
+            $table->foreign('id_dopuji1')
+                ->references('nip')->on('dosen')
+                ->cascadeOnDelete();
+            $table->foreign('id_dopuji2')
+                ->references('nip')->on('dosen')
                 ->cascadeOnDelete();
         });
     }

@@ -14,8 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('mahasiswa', function (Blueprint $table) {
-            $table->string('nim',9)->primary();
+            $table->char('nim',9)->primary();
             $table->string('nama',50);
+            $table->enum('jenkel', ['L', 'P']);
+            $table->integer('angkatan')->length(4);
             $table->timestamps();
         });
     }

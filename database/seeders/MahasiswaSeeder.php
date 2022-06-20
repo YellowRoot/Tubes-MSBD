@@ -18,16 +18,22 @@ class MahasiswaSeeder extends Seeder
         $faker = \Faker\Factory::create();
         DB::table('mahasiswa')->insert([
             [
-                'nim' => $faker->unique()->randomNumber($nbDigits = 9, $strict = true),
+                'nim' => '191402053',
                 'nama' => $faker->name,
+                'jenkel' => 'L',
+                'angkatan' => '2019'
             ],
             [
-                'nim' => $faker->unique()->randomNumber($nbDigits = 9, $strict = true),
+                'nim' => '180402102',
                 'nama' => $faker->name,
+                'jenkel' => 'P',
+                'angkatan' => '2018'
             ],
             [
-                'nim' => $faker->unique()->randomNumber($nbDigits = 9, $strict = true),
+                'nim' => '201402005',
                 'nama' => $faker->name,
+                'jenkel' => 'L',
+                'angkatan' => '2020'
             ],
         ]);
     }

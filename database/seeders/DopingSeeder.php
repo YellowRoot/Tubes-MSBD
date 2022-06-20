@@ -16,7 +16,7 @@ class DopingSeeder extends Seeder
     public function run()
     {
         $faker = \Faker\Factory::create();
-        DB::table('dosen_pembimbing')->insert([
+        DB::table('dosen')->insert([
             [
                 'nip' => $faker->unique()->numerify(str_repeat('#', 18)),
                 'nama' => $faker->name,

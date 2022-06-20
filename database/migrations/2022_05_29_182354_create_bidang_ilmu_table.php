@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('bidang_ilmu', function (Blueprint $table) {
-            $table->id();
+            $table->tinyInteger('id')->autoIncrement();
             $table->string('nama_bidang');
             $table->timestamps();
         });

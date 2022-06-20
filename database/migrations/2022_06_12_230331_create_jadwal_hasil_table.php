@@ -14,13 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('jadwal_hasil', function (Blueprint $table) {
+            $table->uuid('id_skripsi');
             $table->date('tanggal');
             $table->time('pukul');
             $table->string('tempat');
-            $table->string('nim_mahasiswa');
             $table->timestamps();
-            $table->foreign('nim_mahasiswa')
-                ->references('nim')->on('mahasiswa')
+            $table->foreign('id_skripsi')
+                ->references('id')->on('skripsi')
                 ->cascadeOnDelete();
         });
     }

@@ -15,20 +15,36 @@ return new class extends Migration
     {
         DB::unprepared('
             CREATE OR REPLACE TRIGGER total_hasil
-            BEFORE INSERT ON `nilai_hasil`
+            AFTER INSERT ON `nilai_hasil`
             FOR EACH ROW
-            UPDATE skripsi
-            SET total_nilai_hasil = total_nilai(new.nilai1, new.nilai2, new.nilai3, new.nilai4)
-            WHERE skripsi.id = new.id_skripsi;
+            BEGIN
+            SET @COUNT = (SELECT COUNT(*) FROM total_nilai WHERE (id_skripsi = NEW.id_skripsi));
+            IF @COUNT=0 THEN
+                INSERT INTO total_nilai (id_skripsi, total_nilai_seminar_hasil) VALUES
+                (NEW.id_skripsi,  total_nilai(NEW.nilai_doping1, NEW.nilai_doping2, NEW.nilai_dopuji1, NEW.nilai_dopuji2));
+            ELSE
+                UPDATE total_nilai SET total_nilai.total_nilai_seminar_hasil = 
+                total_nilai(NEW.nilai_doping1, NEW.nilai_doping2, NEW.nilai_dopuji1, NEW.nilai_dopuji2)
+                WHERE id_skripsi = NEW.id_skripsi;
+            END IF;
+            END;
         ');
-
+        
         DB::unprepared('
             CREATE OR REPLACE TRIGGER total_sidang
-            BEFORE INSERT ON `nilai_sidang`
+            AFTER INSERT ON `nilai_sidang`
             FOR EACH ROW
-            UPDATE skripsi
-            SET total_nilai_sidang = total_nilai(new.nilai1, new.nilai2, new.nilai3, new.nilai4)
-            WHERE skripsi.id = new.id_skripsi;
+            BEGIN
+            SET @COUNT = (SELECT COUNT(*) FROM total_nilai WHERE (id_skripsi = NEW.id_skripsi));
+            IF @COUNT=0 THEN
+                INSERT INTO total_nilai (id_skripsi, total_nilai_sidang) VALUES
+                (NEW.id_skripsi,  total_nilai(NEW.nilai_doping1, NEW.nilai_doping2, NEW.nilai_dopuji1, NEW.nilai_dopuji2));
+            ELSE
+                UPDATE total_nilai SET total_nilai.total_nilai_sidang = 
+                total_nilai(NEW.nilai_doping1, NEW.nilai_doping2, NEW.nilai_dopuji1, NEW.nilai_dopuji2)
+                WHERE id_skripsi = NEW.id_skripsi;
+            END IF;
+            END;
         ');
     }
 
